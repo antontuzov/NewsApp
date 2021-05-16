@@ -16,15 +16,16 @@ class NewsTableViewCell: UITableViewCell {
     
     lazy var titelLable: UILabel = {
         let lable = UILabel()
-        lable.font = .systemFont(ofSize: 20, weight: .bold)
+        lable.font = .systemFont(ofSize: 19, weight: .bold)
         lable.numberOfLines = 0
+        
         return lable
     }()
 
     lazy var subtitelLable: UILabel = {
         let lable = UILabel()
-        lable.font = .systemFont(ofSize: 18, weight: .regular)
-        lable.tintColor = .gray
+        lable.font = .systemFont(ofSize: 16, weight: .medium)
+        lable.tintColor = .lightGray
         lable.numberOfLines = 0
         return lable
     }()
@@ -36,6 +37,7 @@ class NewsTableViewCell: UITableViewCell {
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .systemBlue
+        imageView.layer.cornerRadius = 10
         return imageView
     }()
     
@@ -71,29 +73,49 @@ class NewsTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        titelLable.snp.makeConstraints { m in
-            m.top.equalToSuperview().inset(5)
-            m.left.equalToSuperview().inset(5)
-        }
-       
-        subtitelLable.snp.makeConstraints { m in
-            m.top.equalTo(titelLable).inset(100)
-            m.left.equalToSuperview().inset(5)
-        }
+//        titelLable.snp.makeConstraints { m in
+//            m.top.equalTo(6)
+////            m.right.equalTo(-50)
+//            m.left.equalTo(2)
+//        
+//        }
+//       
+//        subtitelLable.snp.makeConstraints { m in
+//            m.top.equalTo(titelLable).inset(70)
+//            m.left.equalTo(2)
+//            m.right.equalTo(-2)
+//        }
+//
+//        newsImage.snp.makeConstraints { m in
+//            
+////            m.left.equalTo(titelLable).inset(290)
+////            m.left.greaterThanOrEqualTo(titelLable).inset(290)
+//            m.right.equalToSuperview().offset(-2)
+//            m.right.equalTo(titelLable).offset(290)
+//            m.right.equalTo(subtitelLable).inset(3)
+//            m.top.equalToSuperview().inset(5)
+//            m.bottom.equalTo(-5)
+////            m.bottom.equalToSuperview().offset(-5)
+////            m.width.equalToSuperview().inset(120)
+////            m.height.equalToSuperview().inset(2)
+//            m.width.equalTo(130)
+//            m.height.equalTo(30)
+//        }
 
-        newsImage.snp.makeConstraints { m in
-            
-            m.left.equalTo(titelLable).inset(290)
-            m.right.equalTo(titelLable).inset(-5)
-            m.top.equalToSuperview().inset(5)
-            m.bottom.equalToSuperview().inset(5)
-            m.width.equalToSuperview().inset(130)
-            m.height.equalToSuperview().inset(-10)
-        }
+        titelLable.frame = CGRect(x: 1, y: 0,
+                                  width: contentView.frame.size.width - 120,
+                                  height: contentView.frame.size.height/2)
+        
+        subtitelLable.frame = CGRect(x: 1, y: 70,
+                                     width: contentView.frame.size.width - 140,
+                                     height: contentView.frame.size.height/2)
 
-        
-        
-    
+
+
+        newsImage.frame = CGRect(x: contentView.frame.size.width - 120,
+                                 y: 5,
+                                 width: 160,
+                                 height: contentView.frame.size.height - 10)
     }
 
       override func prepareForReuse() {

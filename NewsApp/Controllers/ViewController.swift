@@ -8,7 +8,7 @@
 import UIKit
 import SafariServices
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
    
 
     
@@ -18,6 +18,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return table
     }()
     
+    private let searchVC = UISearchController(searchResultsController: nil)
+    
+    
+    
     
     private var articles = [Article]()
     private var viewModels = [NewsTableViewCellViewModels]()
@@ -26,8 +30,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         title = "News for today"
         view.addSubview(tableView)
+//        tableView.snp.makeConstraints { m in
+//            m.edges.equalToSuperview()
+//        }
+//        tableView.estimatedRowHeight = 150
+//        tableView.rowHeight = 150
         tableView.delegate = self
         tableView.dataSource = self
+        createSearchBar()
     }
     
     
@@ -40,7 +50,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self?.articles = articles!
                 self?.viewModels = articles!.compactMap({
                     NewsTableViewCellViewModels(titel: $0.title ?? "",
-                                                subtitel: $0.articleDescription ?? "no description",
+                                                subtitel: $0.description ?? "no description",
                                                 imageURL: URL(string: $0.urlToImage ?? "" ))
                 })
                 
@@ -53,6 +63,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    
+    private func createSearchBar() {
+        navigationItem.searchController = searchVC
+        searchVC.searchBar.delegate = self
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModels.count
@@ -86,7 +101,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     
-    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text, !text.isEmpty else {
+            return
+        }
+        APIBase.shared.searchNews(with: text) { [weak self] result  in
+            switch result {
+            case .success(let articles):
+                self?.articles = articles!
+                self?.viewModels = articles!.compactMap({
+                    NewsTableViewCellViewModels(titel: $0.title ?? "",
+                                                subtitel: $0.description ?? "no description",
+                                                imageURL: URL(string: $0.urlToImage ?? "" ))
+                })
+                
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
     
 }
 

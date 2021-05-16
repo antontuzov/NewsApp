@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 
 class APIBase {
@@ -17,8 +17,8 @@ class APIBase {
     
     
     struct Constants {
-        static let topURL = URL(string: "https://newsapi.org/v2/everything?domains=wsj.com&apiKey=79f8d87a24534c508bbd48a20a487110")
-        
+        static let topURL = URL(string: "https://newsapi.org/v2/top-headlines?country=ru&category=business&apiKey=79f8d87a24534c508bbd48a20a487110")
+        static let searchURLString = "https://newsapi.org/v2/everything?q=tesla&from=2021-04-16&sortBy=publishedAt&apiKey=79f8d87a24534c508bbd48a20a487110&q="
         
     }
     
@@ -40,7 +40,7 @@ class APIBase {
                 do {
                     let result = try JSONDecoder().decode(APIResponse.self, from: data)
                     
-                    print(result.articles?.count)
+//                    print(result.articles?.count)
                     completion(.success(result.articles))
                     
                 } catch {
@@ -60,7 +60,45 @@ class APIBase {
 
 
     
-    
+    public func searchNews(with query: String, completion: @escaping (Result<[Article]? , Error>) -> Void) {
+        
+        guard !query.trimmingCharacters(in: .whitespaces).isEmpty else {
+            
+            return
+        }
+        
+        let urlstring = Constants.searchURLString + query
+        
+
+        guard let url = URL(string: urlstring)  else {
+              return
+          }
+          
+          let task = URLSession.shared.dataTask(with: url) { data, _, error in
+              if let error = error {
+                  completion(.failure(error))
+              } else if let data = data {
+                  
+                  do {
+                      let result = try JSONDecoder().decode(APIResponse.self, from: data)
+                      
+//                      print(result.articles?.count)
+                      completion(.success(result.articles))
+                      
+                  } catch {
+                      completion(.failure(error))
+                      
+                  }
+                  
+              }
+             
+              
+              
+          }
+          task.resume()
+          
+
+      }
     
     
     
