@@ -30,11 +30,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         title = "News for today"
         view.addSubview(tableView)
-//        tableView.snp.makeConstraints { m in
-//            m.edges.equalToSuperview()
-//        }
-//        tableView.estimatedRowHeight = 150
-//        tableView.rowHeight = 150
+        tableView.snp.makeConstraints { m in
+            m.edges.equalToSuperview()
+        }
+        tableView.estimatedRowHeight = 150
+        tableView.rowHeight = 150
         tableView.delegate = self
         tableView.dataSource = self
         createSearchBar()

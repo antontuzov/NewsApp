@@ -73,49 +73,51 @@ class NewsTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-//        titelLable.snp.makeConstraints { m in
-//            m.top.equalTo(6)
-////            m.right.equalTo(-50)
-//            m.left.equalTo(2)
-//        
-//        }
-//       
-//        subtitelLable.snp.makeConstraints { m in
-//            m.top.equalTo(titelLable).inset(70)
-//            m.left.equalTo(2)
-//            m.right.equalTo(-2)
-//        }
-//
-//        newsImage.snp.makeConstraints { m in
-//            
-////            m.left.equalTo(titelLable).inset(290)
-////            m.left.greaterThanOrEqualTo(titelLable).inset(290)
-//            m.right.equalToSuperview().offset(-2)
-//            m.right.equalTo(titelLable).offset(290)
-//            m.right.equalTo(subtitelLable).inset(3)
-//            m.top.equalToSuperview().inset(5)
-//            m.bottom.equalTo(-5)
-////            m.bottom.equalToSuperview().offset(-5)
-////            m.width.equalToSuperview().inset(120)
-////            m.height.equalToSuperview().inset(2)
-//            m.width.equalTo(130)
-//            m.height.equalTo(30)
-//        }
-
-        titelLable.frame = CGRect(x: 1, y: 0,
-                                  width: contentView.frame.size.width - 120,
-                                  height: contentView.frame.size.height/2)
+        titelLable.snp.makeConstraints { m in
+            m.top.equalTo(6)
+//            m.right.equalTo(-50)
+            m.left.equalTo(2)
+            m.height.equalToSuperview().inset(3)
+            m.width.equalToSuperview().inset(0)
         
-        subtitelLable.frame = CGRect(x: 1, y: 70,
-                                     width: contentView.frame.size.width - 140,
-                                     height: contentView.frame.size.height/2)
+        }
+       
+        subtitelLable.snp.makeConstraints { m in
+            m.top.equalTo(titelLable).inset(70)
+            m.left.equalTo(2)
+            m.right.equalTo(-2)
+        }
 
+        newsImage.snp.makeConstraints { m in
+            
+//            m.left.equalTo(titelLable).inset(290)
+//            m.left.greaterThanOrEqualTo(titelLable).inset(290)
+//            m.right.equalToSuperview().offset(-2)
+//            m.centerX.equalTo(contentView).inset(12)
+            m.centerX.equalTo(contentView).inset(-3)
+            m.top.equalToSuperview().inset(5)
+            m.bottom.equalTo(-5)
+//            m.bottom.equalToSuperview().offset(-5)
+//            m.width.equalToSuperview().inset(120)
+//            m.height.equalToSuperview().inset(2)
+            m.width.equalTo(140)
+            m.height.equalTo(10)
+        }
 
-
-        newsImage.frame = CGRect(x: contentView.frame.size.width - 120,
-                                 y: 5,
-                                 width: 160,
-                                 height: contentView.frame.size.height - 10)
+//        titelLable.frame = CGRect(x: 1, y: 0,
+//                                  width: contentView.frame.size.width - 120,
+//                                  height: contentView.frame.size.height/2)
+//
+//        subtitelLable.frame = CGRect(x: 1, y: 70,
+//                                     width: contentView.frame.size.width - 140,
+//                                     height: contentView.frame.size.height/2)
+//
+//
+//
+//        newsImage.frame = CGRect(x: contentView.frame.size.width - 120,
+//                                 y: 5,
+//                                 width: 160,
+//                                 height: contentView.frame.size.height - 10)
     }
 
       override func prepareForReuse() {
