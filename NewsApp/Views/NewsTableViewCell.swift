@@ -17,8 +17,8 @@ class NewsTableViewCell: UITableViewCell {
     lazy var titelLable: UILabel = {
         let lable = UILabel()
         lable.font = .systemFont(ofSize: 19, weight: .bold)
-        lable.numberOfLines = 0
-        
+        lable.numberOfLines = 2
+        lable.translatesAutoresizingMaskIntoConstraints = false
         return lable
     }()
 
@@ -26,21 +26,23 @@ class NewsTableViewCell: UITableViewCell {
         let lable = UILabel()
         lable.font = .systemFont(ofSize: 16, weight: .medium)
         lable.tintColor = .lightGray
-        lable.numberOfLines = 0
+        lable.numberOfLines = 3
+        lable.translatesAutoresizingMaskIntoConstraints = false
         return lable
     }()
     
     
-    
+
     lazy var newsImage: UIImageView = {
         let imageView =  UIImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .systemBlue
         imageView.layer.cornerRadius = 10
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+
     
     
 //
@@ -73,37 +75,40 @@ class NewsTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+      
+
+        newsImage.snp.makeConstraints { m in
+
+            m.top.equalTo(5)
+            m.left.equalToSuperview().inset(2)
+            m.bottom.equalToSuperview().inset(-2)
+            m.height.equalToSuperview().inset(160)
+            m.width.equalToSuperview().inset(140)
+        
+        
+        }
         titelLable.snp.makeConstraints { m in
-            m.top.equalTo(6)
-//            m.right.equalTo(-50)
-            m.left.equalTo(2)
-            m.height.equalToSuperview().inset(3)
-            m.width.equalToSuperview().inset(0)
+            m.left.equalTo(120)
+            m.right.equalTo(-2)
+            m.top.equalTo(2)
+
         
         }
        
         subtitelLable.snp.makeConstraints { m in
-            m.top.equalTo(titelLable).inset(70)
-            m.left.equalTo(2)
+            m.left.equalTo(120)
             m.right.equalTo(-2)
-        }
-
-        newsImage.snp.makeConstraints { m in
+            m.top.equalToSuperview().inset(70)
             
-//            m.left.equalTo(titelLable).inset(290)
-//            m.left.greaterThanOrEqualTo(titelLable).inset(290)
-//            m.right.equalToSuperview().offset(-2)
-//            m.centerX.equalTo(contentView).inset(12)
-            m.centerX.equalTo(contentView).inset(-3)
-            m.top.equalToSuperview().inset(5)
-            m.bottom.equalTo(-5)
-//            m.bottom.equalToSuperview().offset(-5)
-//            m.width.equalToSuperview().inset(120)
-//            m.height.equalToSuperview().inset(2)
-            m.width.equalTo(140)
-            m.height.equalTo(10)
         }
-
+        
+        
+        
+        
+        
+        
+        
+//
 //        titelLable.frame = CGRect(x: 1, y: 0,
 //                                  width: contentView.frame.size.width - 120,
 //                                  height: contentView.frame.size.height/2)
@@ -114,10 +119,47 @@ class NewsTableViewCell: UITableViewCell {
 //
 //
 //
-//        newsImage.frame = CGRect(x: contentView.frame.size.width - 120,
+//        newsImage.frame = CGRect(x: contentView.frame.size.width - 110,
 //                                 y: 5,
 //                                 width: 160,
 //                                 height: contentView.frame.size.height - 10)
+        
+        
+        
+        
+//        NSLayoutConstraint.activate([
+//            titelLable.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+//            titelLable.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 1),
+//            titelLable.widthAnchor.constraint(equalToConstant: contentView.frame.size.width - 120),
+//            titelLable.heightAnchor.constraint(equalToConstant: contentView.frame.size.height/2)
+//
+//
+//        ])
+//
+//
+//        NSLayoutConstraint.activate([
+//            subtitelLable.topAnchor.constraint(equalTo: topAnchor, constant: 70),
+//            subtitelLable.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 1),
+//            subtitelLable.widthAnchor.constraint(equalTo: widthAnchor, constant: contentView.frame.size.width - 140),
+//            subtitelLable.heightAnchor.constraint(equalToConstant: contentView.frame.size.height/2)
+//
+//
+//        ])
+//
+//
+//        NSLayoutConstraint.activate([
+//            newsImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: contentView.frame.size.width - 110),
+//            newsImage.widthAnchor.constraint(equalToConstant: 160),
+//            newsImage.heightAnchor.constraint(equalToConstant: contentView.frame.size.height - 10),
+//            newsImage.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+//            newsImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+////            newsImage.leadingAnchor.constraint(equalTo: subtitelLable.trailingAnchor, constant: 2)
+//
+//        ])
+
+        
+        
+        
     }
 
       override func prepareForReuse() {
@@ -159,11 +201,6 @@ class NewsTableViewCell: UITableViewCell {
 
 
 
-//view.addSubview(view1)
-//view1.snp.makeConstraints { (m) in
-//    m.width.equalTo(15)
-//    m.height.equalTo(15)
-//    m.top.equalToSuperview().inset(100)
-//    m.left.equalToSuperview().inset(20)
+
 
     }

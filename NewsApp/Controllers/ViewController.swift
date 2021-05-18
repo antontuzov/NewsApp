@@ -32,9 +32,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         view.addSubview(tableView)
         tableView.snp.makeConstraints { m in
             m.edges.equalToSuperview()
+        
         }
-        tableView.estimatedRowHeight = 150
-        tableView.rowHeight = 150
+//        tableView.estimatedRowHeight = 150
+//        tableView.rowHeight = 150
         tableView.delegate = self
         tableView.dataSource = self
         createSearchBar()

@@ -13,12 +13,17 @@ class APIBase {
     
     static let shared = APIBase()
     
-    
+
     
     
     struct Constants {
-        static let topURL = URL(string: "https://newsapi.org/v2/top-headlines?country=ru&category=business&apiKey=79f8d87a24534c508bbd48a20a487110")
-        static let searchURLString = "https://newsapi.org/v2/everything?q=tesla&from=2021-04-16&sortBy=publishedAt&apiKey=79f8d87a24534c508bbd48a20a487110&q="
+        static let topURL = URL(string: "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=79f8d87a24534c508bbd48a20a487110")
+        static let searchURLString = "https://newsapi.org/v2/everything?q=apple&from=2021-05-17&to=2021-05-17&sortBy=popularity&apiKey=79f8d87a24534c508bbd48a20a487110&q="
+            
+            
+            
+            
+//            "https://newsapi.org/v2/everything?q=apple&from=2021-05-17&to=2021-05-17&sortBy=popularity&apiKey=79f8d87a24534c508bbd48a20a487110&q="
         
     }
     
