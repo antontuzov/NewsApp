@@ -28,18 +28,42 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "News for today"
         view.addSubview(tableView)
-        tableView.snp.makeConstraints { m in
-            m.edges.equalToSuperview()
-        
-        }
+        navigationItem.largeTitleDisplayMode = .always
+        title = "News for today"
+        createSearchBar()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+                    image: UIImage(systemName: "gear"),
+                    style: .done,
+                    target: self,
+                    action: #selector(didTapSettings)
+                )
+//        tableView.snp.makeConstraints { m in
+//            m.edges.equalToSuperview()
+//
+//        }
 //        tableView.estimatedRowHeight = 150
 //        tableView.rowHeight = 150
+        
         tableView.delegate = self
         tableView.dataSource = self
-        createSearchBar()
+      
     }
+    
+    
+    private func createSearchBar() {
+        navigationItem.searchController = searchVC
+        searchVC.searchBar.delegate = self
+    }
+    
+    @objc func didTapSettings() {
+               let vc = SettingsViewController()
+               vc.title = "Settings"
+               vc.navigationItem.largeTitleDisplayMode = .never
+               navigationController?.pushViewController(vc, animated: true)
+           }
+    
+    
     
     
     override func viewDidLayoutSubviews() {
@@ -48,8 +72,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         APIBase.shared.getNews { [weak self] result  in
             switch result {
             case .success(let articles):
-                self?.articles = articles!
-                self?.viewModels = articles!.compactMap({
+                self?.articles = articles
+                self?.viewModels = articles.compactMap({
                     NewsTableViewCellViewModels(titel: $0.title ?? "",
                                                 subtitel: $0.description ?? "no description",
                                                 imageURL: URL(string: $0.urlToImage ?? "" ))
@@ -62,13 +86,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print(error)
             }
         }
+        
+        
+        
+ 
     }
     
     
-    private func createSearchBar() {
-        navigationItem.searchController = searchVC
-        searchVC.searchBar.delegate = self
-    }
+ 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModels.count
@@ -78,7 +103,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
        guard let cell = tableView.dequeueReusableCell(
             withIdentifier:  NewsTableViewCell.identifier,
             for: indexPath) as?  NewsTableViewCell else {
-                fatalError()
+                fatalError("😥")
             }
         cell.configure(with: viewModels[indexPath.row])
         

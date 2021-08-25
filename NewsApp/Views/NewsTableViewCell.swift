@@ -88,7 +88,7 @@ class NewsTableViewCell: UITableViewCell {
         
         }
         titelLable.snp.makeConstraints { m in
-            m.left.equalTo(120)
+            m.left.equalTo(153)
             m.right.equalTo(-2)
             m.top.equalTo(2)
 
@@ -96,7 +96,7 @@ class NewsTableViewCell: UITableViewCell {
         }
        
         subtitelLable.snp.makeConstraints { m in
-            m.left.equalTo(120)
+            m.left.equalTo(153)
             m.right.equalTo(-2)
             m.top.equalToSuperview().inset(70)
             
